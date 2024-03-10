@@ -5,8 +5,6 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.figure_factory as ff
-from streamlit_lottie import st_lottie
-from streamlit_pandas_profiling import st_profile_report
 
 olympics_logo ='https://lottie.host/a7c3b6e4-ff56-41dd-84b3-c844e2cdd27a/ZbddSVs3bF.json'
 browse_data_animation='https://assets1.lottiefiles.com/packages/lf20_xmkgn4jj.json'
@@ -182,8 +180,7 @@ if user_menu == 'Browse Data':
     st.title("Data Analysis")
     data = st.file_uploader("Upload a Dataset", type=["csv", "txt"])
     if data is None:
-        # creating lottie animations
-        st_lottie(helper.load_animaton(browse_data_animation), key="browse data animation")
+        st.image("https://datarundown.com/wp-content/uploads/2023/05/Model-Data-Analytics.jpg")
 
     if data is not None:
         activities = ["EDA","Pandas Profiling Report" , 'Sweetviz Report']
@@ -356,18 +353,3 @@ if user_menu == 'Browse Data':
                     st.write(values_col)
                     fig = px.scatter_ternary(df, a=x_axis, b=y_axis, c=z_axis)
                     st.plotly_chart(fig)
-
-
-        #Inbuilt python Library which generate automated EDA analysis
-        elif choice == 'Pandas Profiling Report':
-            st.subheader("Automated EDA with Pandas Profiling")
-            st.write("Pandas Profiling helps in generating an Automated Exploratory Data Analysis for small Datasets")
-            if data is not None:
-                if st.button("Generate pandas profiling Report"):
-                    try:
-                        profile = helper.generate_pandas_profile_report(df)
-                        st_profile_report(profile)
-                    except:
-                        st.warning("Opps!! Something went wrong\nTry again with small data set")    
-
-
